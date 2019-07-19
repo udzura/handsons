@@ -4,10 +4,12 @@
 * Windows の方もVagrant+VirtualBox with 共有フォルダ の設定をベースに、同様の環境を作ってください。
   * ちなみに今回の後続のシステムプログラミング講座でやろうとしていることは、 **WSL1 ではできない** と聞いています（まず `/proc` がないそうです）
   * WSL2 はもしかしたら...と思うので、挑戦したらPRで内容反映をお願いしたいかも
+* このmarkdownでの手順は、 `<on Mac>` `<on Linux>` に分かれます。それぞれターミナルを分けておくのがオススメ
 
 ## 作業用リポジトリのチェックアウトと更新をする
 
 ```console
+### <on Mac>
 $ git clone https://github.com/udzura/handsons.git; cd handsons
 $ git pull --rebase origin master
 ```
@@ -17,6 +19,7 @@ $ git pull --rebase origin master
 ## Vagrant経由で開発マシンを立ち上げる
 
 ```console
+### <on Mac>
 $ vagrant up
 ```
 
@@ -27,7 +30,10 @@ $ vagrant up
 ### 共有ディレクトリができてることを確認
 
 ```console
+### <on Mac>
 $ vagrant ssh
+
+### <on Linux>
 vagrant@ubuntu-bionic:~$ ls -l /vagrant
 total 60
 -rw-r--r-- 1 vagrant vagrant  1068 Jul 17 10:53 LICENSE
@@ -46,6 +52,7 @@ drwxr-xr-x 1 vagrant vagrant   128 Jul 19 08:01 handsons
 * Custom tapがあります。以下でインストール完了です。 <s>このTapは今日のために私が用意しました...</s>
 
 ```console
+### <on Mac>
 $ brew tap mrbgems/mrbgem-template
 $ brew install mrbgem-template
 ```
@@ -53,6 +60,7 @@ $ brew install mrbgem-template
 * Windows の方はこのコマンドはLinux側に入れてください。
 
 ```console
+### <on Linux>
 $ cd /tmp
 $ git clone https://github.com/matsumotory/mruby-mrbgem-template.git && \
   cd mruby-mrbgem-template && \
@@ -63,6 +71,7 @@ $ git clone https://github.com/matsumotory/mruby-mrbgem-template.git && \
 ## mruby 自体のビルドができるかLinux上で確認
 
 ```console
+### <on Linux>
 $ cd /vagrant/workspace
 $ git clone https://github.com/mruby/mruby.git
 $ cd mruby
@@ -72,6 +81,7 @@ $ make
 ### mruby のバージョン確認とコード実行
 
 ```console
+### <on Linux>
 $ ./bin/mruby --version
 mruby 2.0.1 (2019-04-04) 
 
@@ -82,6 +92,7 @@ Hello, systems in depth
 ### mirb の立ち上げ
 
 ```console
+### <on Linux>
 $ ./bin/mirb
 mirb - Embeddable Interactive Ruby Shell
 

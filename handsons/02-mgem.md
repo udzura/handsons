@@ -87,6 +87,7 @@ $ cat /proc/loadavg
 * しかし、それぞれの数字の意味はなんでしょう？
   * [man があります](https://linuxjm.osdn.jp/html/LDP_man-pages/man5/proc.5.html)
   * シスプロを始めると man のセクション1以外を見るようになります :)
+* 実装したら、 `rake && mirb` を繰り返し、Loadavgが取得できているか確認しつつ進めましょう
 
 ### Publish the mgem
 
