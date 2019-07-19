@@ -25,7 +25,7 @@ $ vagrant up
 
 * 今回のハンズオンに必要なパッケージは全部入ると思います。
   * めっちゃログでます。できれば事前にやっておいて欲しいです！
-* 失敗しているようなら [Vagrantfile のセットアップスクリプト]() を眺めながらコマンドを打ち直してください
+* 失敗しているようなら [Vagrantfile のセットアップスクリプト](https://github.com/udzura/handsons/blob/master/Vagrantfile#L21-L30) を眺めながらコマンドを打ち直してください
 
 ### 共有ディレクトリができてることを確認
 
@@ -45,7 +45,7 @@ drwxr-xr-x 1 vagrant vagrant   128 Jul 19 08:01 handsons
 ...
 ```
 
-## mrbgen-template コマンドをインストール
+## mrbgem-template コマンドをインストール
 
 * Homebrew を入れてください。
   * https://brew.sh/index_ja
@@ -55,6 +55,17 @@ drwxr-xr-x 1 vagrant vagrant   128 Jul 19 08:01 handsons
 ### <on Mac>
 $ brew tap mrbgems/mrbgem-template
 $ brew install mrbgem-template
+$ mrbgem-template --help
+Usage: mrbgem-template [options] mrbgem_name
+    -h, --help                       Show usage
+    -v, --version                    Show version
+    -l, --license [LICENSE]          Set license
+    -u, --github-user [USER]         Set user name on github
+    -p, --mrbgem-prexif [PREFIX]     Set prefix dir to mgem project
+    -c, --class-name [CLASS]         Set class name
+    -a, --author [AUTHOR]            Set the author of this mgem
+    -b, --[no-]local-builder         Enable or disable local builder
+    -C, --[no-]ci                    Enable or disable CI by travis
 ```
 
 * Windows の方はこのコマンドはLinux側に入れてください。
