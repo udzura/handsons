@@ -31,6 +31,7 @@ $ git pull --rebase origin master
 
 ```console
 ### <on Mac>
+$ vagrant plugin install vagrant-disksize # 必要なプラグイン
 $ vagrant up
 ```
 

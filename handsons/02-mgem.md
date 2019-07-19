@@ -54,6 +54,17 @@ $ cd mruby-loadavg
 $ rm -rf src/
 ```
 
+また、 `mrbgem.rake` で依存する外部もしくは標準添付のmgemを指定します。今回は `File` クラスが定義されている `mruby-io` mgemが必要そうですね。
+
+```ruby
+MRuby::Gem::Specification.new('mruby-loadavg') do |spec|
+  spec.license = 'MIT'
+  spec.authors = 'Uchio Kondo'
+
+  spec.add_dependency 'mruby-io'
+end
+```
+
 ### ビルドできるかだけ試しておきましょう
 
 ```console
