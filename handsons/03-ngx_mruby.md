@@ -84,6 +84,77 @@ Hello ngx_mruby/2.1.4 world!
 $ sudo killall nginx
 ```
 
+## upstreamをホスト名から動的に変更する
+
+### 事前準備
+
+* 事前準備でそもそものupstreamを用意します。今回は、ホスト名にapacheが入ってたらapache、nginxが入っていたらnginxのサーバを返すものを作ります。
+* 今回は8081番にapache、8082番にnginxです。お好みでお好きなコンテンツをあげてください。
+
+```console
+$ sudo docker run -ti -d -p8081:80 httpd:2.4
+$ sudo docker run -ti -d -p8082:80 nginx:1.16
+```
+
+### Nginx側の設定
+
+* `mruby_set` で$backendを動的にセットしているのがわかると思います。他はNginxをプロクシとして使うときのおまじないみたいな...。
+
+```conf
+...
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            resolver              8.8.8.8;
+            mruby_set $backend    mruby/step1.rb
+
+            proxy_http_version    1.1;
+            proxy_pass            http://$backend;
+            proxy_set_header      Host $host;
+            proxy_set_header      Connection "";
+            proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header      X-Forwarded-Host $host;
+            proxy_set_header      X-Forwarded-Server $host;
+            proxy_set_header      X-Real-IP $remote_addr;
+            # root   html;
+            # index  index.html index.htm;
+        }
+    }
+```
+
+### mruby の配置
+
+* `/usr/local/nginx-mruby/mruby/*.rb` にmrubyスクリプトをおきましょう。今回はこちら
+
+```ruby
+data = Nginx::Var.new
+domain = data.http_host
+upstream = ""
+
+case domain
+when /apache/
+  upstream = "127.0.0.1:8081"
+when /nginx/
+  upstream = "127.0.0.1:8082"
+else
+end
+
+upstream
+```
+
+* 何をしているのか、帰るにはどうすればいいか、Rubyなので大変わかりやすい。
+* 最後に評価された値が変数にセットされます。
+
+### これで立ち上げる
+
+* port forward してるはずなのでホストから
+  * `http://apache.127.0.0.1.xip.io:8080/`
+  * `http://nginx.127.0.0.1.xip.io:8080/`
+  * `http://udzura.127.0.0.1.xip.io:8080/`
+* へのアクセスを確認して見ましょう。
+* 宿題として、「その他」の場合に今は503になってしまうのを、もっといい感じにできないか考えてみましょう
+
 ## 設定例について
 
-* このレポジトリの `ngx_mruby/` ディレクトリに設定の実際の例を置いています。
+* このレポジトリの `ngx_mruby/` ディレクトリに設定の実際の例を置いています。mrubyスクリプトを含む。
