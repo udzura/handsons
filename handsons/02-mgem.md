@@ -212,11 +212,13 @@ static mrb_value mrb_uname_sysname(mrb_state *mrb, mrb_value self)
 ### gem自体の初期化関数で、関数をメソッドとして定義し直す
 
 * `mrb_#{gemname.sub(/-/, '_')}_gem_init` という関数が、mruby初期化時に呼ばれる規約です。そこでクラスが定義されるといい感じです。
+* もうひとつ大事なこととして、 `MRB_SET_INSTANCE_TT` というマクロでこのインスタンスがどういう型なのか宣言する必要があります。 `MRB_TT_DATA` を指定しないと **GCの際にfreeしてくれない** ので忘れずに。
 
 ```c
 void mrb_mruby_myuname_gem_init(mrb_state *mrb)
 {
   struct RClass *uname;
+  MRB_SET_INSTANCE_TT(uname, MRB_TT_DATA);
   uname = mrb_define_class(mrb, "Uname", mrb->object_class);
   mrb_define_method(mrb, uname, "initialize", mrb_uname_init, MRB_ARGS_NONE());
   mrb_define_method(mrb, uname, "sysname", mrb_uname_sysname, MRB_ARGS_NONE());
@@ -260,7 +262,15 @@ $ valgrind --tool=memcheck ./mruby/bin/mruby -e '50.times { Uname.new.sysname }'
 ==19625== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
-* あえて `free` しないコードにすればちゃんと警告が出るはず。試してみましょう。メモリをただしく扱うのがシスプロの基本です。<s>最後は人間で管理しきれなくなってRustを書く。</s>
+* `LEAK SUMMARY` とかを見つつ、頑張って漏れている箇所を探す。
+* よくあるのは `MRB_SET_INSTANCE_TT(uname, MRB_TT_DATA);` を忘れてるやつ。
+* スタックにあるやつを間違えて持ってきちゃった！とかも検知してくれて優秀です。
+* メモリをただしく扱うのがシスプロの基本です。<s>最後は人間で管理しきれなくなってRustを書く。</s>
+* 最終的にこうなるように頑張りましょう
+
+```
+==2133== All heap blocks were freed -- no leaks are possible
+```
 
 ### 今回やっていないこと
 

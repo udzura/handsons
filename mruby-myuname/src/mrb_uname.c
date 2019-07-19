@@ -10,6 +10,7 @@
 
 #include <mruby.h>
 #include <mruby/data.h>
+#include <mruby/class.h>
 #include <mruby/error.h>
 #include "mrb_uname.h"
 
@@ -20,7 +21,8 @@
 typedef struct utsname mrb_utsname;
 
 void mrb_uname_free(mrb_state *mrb, void *p) {
-  mrb_free(mrb, (mrb_utsname *)p);
+  mrb_utsname *data = (mrb_utsname *)p;
+  mrb_free(mrb, data);
 }
 
 static const struct mrb_data_type mrb_uname_data_type = {
@@ -87,6 +89,7 @@ void mrb_mruby_myuname_gem_init(mrb_state *mrb)
 {
   struct RClass *uname;
   uname = mrb_define_class(mrb, "Uname", mrb->object_class);
+  MRB_SET_INSTANCE_TT(uname, MRB_TT_DATA);
   mrb_define_method(mrb, uname, "initialize", mrb_uname_init, MRB_ARGS_NONE());
   mrb_define_method(mrb, uname, "sysname", mrb_uname_sysname, MRB_ARGS_NONE());
   mrb_define_method(mrb, uname, "nodename", mrb_uname_nodename, MRB_ARGS_NONE());

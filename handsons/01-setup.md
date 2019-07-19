@@ -129,3 +129,32 @@ Hello, systems in depth!
 セットアップはここまでです！ お疲れ様でした :smily:
 
 前日に準備されている方は、当日をお楽しみに〜
+
+## トラブルシュート
+
+### Boxの容量が妙に少ない
+
+```console
+vagrant@ubuntu-bionic:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            2.0G     0  2.0G   0% /dev
+tmpfs           395M  5.9M  389M   2% /run
+/dev/sda1       2.2G  2.1G   68M  97% /
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/loop0       89M   89M     0 100% /snap/core/7270
+/dev/loop1       98M   98M     0 100% /snap/docker/384
+vagrant         466G  401G   66G  86% /vagrant
+tmpfs           395M     0  395M   0% /run/user/1000
+```
+
+* `resize2fs` コマンドを使うと拡張されるかもしれない
+
+```console
+vagrant@ubuntu-bionic:~$ sudo resize2fs /dev/sda1
+resize2fs 1.43.8 (1-Jan-2018)
+Filesystem at /dev/sda1 is mounted on /; on-line resizing required
+old_desc_blocks = 1, new_desc_blocks = 2
+The filesystem on /dev/sda1 is now 2621179 (4k) blocks long.
+```
