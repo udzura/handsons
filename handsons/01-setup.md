@@ -6,6 +6,17 @@
   * WSL2 はもしかしたら...と思うので、挑戦したらPRで内容反映をお願いしたいかも
 * このmarkdownでの手順は、 `<on Mac>` `<on Linux>` に分かれます。それぞれターミナルを分けておくのがオススメ
 
+## ツールのインストール
+
+* Vagrant
+  * https://www.vagrantup.com/downloads.html の「macOS 64-bit」よりどうぞ
+* VirtualBox
+  * https://www.virtualbox.org/wiki/Downloads の「OS X hosts」よりどうぞ
+* どちらもdmgが配られています
+* バージョンによっては MacOS の セキュリティ周りの設定でハマるようです。
+  * 「開発元”Oracle America, Inc.”のシステム・ソフトウェアの読み込みがブロックされました〜」のようなメッセージが出るそうです
+  * https://qiita.com/ksyunnnn/items/2884516bf333c536a9cb Qiita で言えばこのあたりの記事だと思います
+
 ## 作業用リポジトリのチェックアウトと更新をする
 
 ```console
