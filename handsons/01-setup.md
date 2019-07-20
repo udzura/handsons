@@ -59,7 +59,7 @@ drwxr-xr-x 1 vagrant vagrant   128 Jul 19 08:01 handsons
 
 ## mrbgem-template コマンドをインストール
 
-* Homebrew を入れてください。
+* Mac 側に Homebrew を入れてください。
   * https://brew.sh/index_ja
 * Custom tapがあります。以下でインストール完了です。 <s>このTapは今日のために私が用意しました...</s>
 
@@ -131,6 +131,14 @@ Hello, systems in depth!
 前日に準備されている方は、当日をお楽しみに〜
 
 ## トラブルシュート
+
+### `vagrant-disksize` が入らない
+
+* `vagrant-vbguest` を先に入れるとうまくいくかもしれません
+
+```console
+$ vagrant plugin install vagrant-vbguest
+```
 
 ### Boxの容量が妙に少ない
 
