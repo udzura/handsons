@@ -6,7 +6,7 @@
   * WSL2 はもしかしたら...と思うので、挑戦したらPRで内容反映をお願いしたいかも
 * このmarkdownでの手順は、 `<on Mac>` `<on Linux>` に分かれます。それぞれターミナルを分けておくのがオススメ
 
-## ツールのインストール
+## [Mac] ツールのインストール
 
 * Vagrant
   * https://www.vagrantup.com/downloads.html の「macOS 64-bit」よりどうぞ
@@ -17,7 +17,7 @@
   * 「開発元”Oracle America, Inc.”のシステム・ソフトウェアの読み込みがブロックされました〜」のようなメッセージが出るそうです
   * https://qiita.com/ksyunnnn/items/2884516bf333c536a9cb Qiita で言えばこのあたりの記事だと思います
 
-## 作業用リポジトリのチェックアウトと更新をする
+## [Mac] 作業用リポジトリのチェックアウトと更新をする
 
 ```console
 ### <on Mac>
@@ -27,7 +27,7 @@ $ git pull --rebase origin master
 
 * 以下、この `handsons` ディレクトリに入っての作業です
 
-## Vagrant経由で開発マシンを立ち上げる
+## [Mac] Vagrant経由で開発マシンを立ち上げる
 
 ```console
 ### <on Mac>
@@ -39,7 +39,7 @@ $ vagrant up
   * めっちゃログでます。できれば事前にやっておいて欲しいです！
 * 失敗しているようなら [Vagrantfile のセットアップスクリプト](https://github.com/udzura/handsons/blob/master/Vagrantfile#L21-L30) を眺めながらコマンドを打ち直してください
 
-### 共有ディレクトリができてることを確認
+### [Mac/Linux] 共有ディレクトリができてることを確認
 
 ```console
 ### <on Mac>
@@ -57,7 +57,7 @@ drwxr-xr-x 1 vagrant vagrant   128 Jul 19 08:01 handsons
 ...
 ```
 
-## mrbgem-template コマンドをインストール
+## [Mac] mrbgem-template コマンドをインストール
 
 * Mac 側に Homebrew を入れてください。
   * https://brew.sh/index_ja
@@ -91,7 +91,7 @@ $ git clone https://github.com/matsumotory/mruby-mrbgem-template.git && \
   sudo install mruby/bin/mrbgem-template /usr/local/bin
 ```
 
-## mruby 自体のビルドができるかLinux上で確認
+## [Linux] mruby 自体のビルドができるかLinux上で確認
 
 ```console
 ### <on Linux>
@@ -131,6 +131,11 @@ Hello, systems in depth!
 前日に準備されている方は、当日をお楽しみに〜
 
 ## トラブルシュート
+
+### まずは落ち着いて
+
+* 自分のその作業が **Macでやるべきか、Linuxでやるべきか** 落ち着いて確認しましょう。
+* 今回のワークショップは行き来が多いので、どっちでの作業か混乱しないよう注意。
 
 ### `vagrant-disksize` が入らない
 
