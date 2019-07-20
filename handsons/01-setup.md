@@ -137,12 +137,14 @@ Hello, systems in depth!
 * `vagrant-vbguest` を先に入れるとうまくいくかもしれません
 
 ```console
+### <on Mac>
 $ vagrant plugin install vagrant-vbguest
 ```
 
 ### Boxの容量が妙に少ない
 
 ```console
+### <on Linux>
 vagrant@ubuntu-bionic:~$ df -h
 Filesystem      Size  Used Avail Use% Mounted on
 udev            2.0G     0  2.0G   0% /dev
@@ -160,6 +162,7 @@ tmpfs           395M     0  395M   0% /run/user/1000
 * `resize2fs` コマンドを使うと拡張されるかもしれない
 
 ```console
+### <on Linux>
 vagrant@ubuntu-bionic:~$ sudo resize2fs /dev/sda1
 resize2fs 1.43.8 (1-Jan-2018)
 Filesystem at /dev/sda1 is mounted on /; on-line resizing required

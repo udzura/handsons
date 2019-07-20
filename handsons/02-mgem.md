@@ -238,6 +238,7 @@ void mrb_mruby_myuname_gem_init(mrb_state *mrb)
 * メモリリークの確認には `valgrind` が一番。インスタンスの生成→破棄のループを回してあげて、それに `valgrind` をかければOK。
 
 ```console
+### <on Linux>
 $ sudo apt install valgrind
 $ valgrind --tool=memcheck ./mruby/bin/mruby -e '50.times { Uname.new.sysname }'
 ==19625== Memcheck, a memory error detector

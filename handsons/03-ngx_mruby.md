@@ -45,6 +45,7 @@ configure arguments: --add-module=/home/vagrant/ngx_mruby --add-module=/home/vag
 ## Hello world
 
 ```
+### <on Linux>
 $ sudo vi /usr/local/nginx-mruby/conf/nginx.conf
 ```
 
@@ -73,14 +74,16 @@ $ sudo vi /usr/local/nginx-mruby/conf/nginx.conf
 ### 起動と確認
 
 ```console
+### <on Linux>
 $ sudo /usr/local/nginx-mruby/sbin/nginx
-$ curl localhost/mruby
+$ curl http://localhost/mruby
 Hello ngx_mruby/2.1.4 world!
 ```
 
 ### 停止（雑です）
 
 ```console
+### <on Linux>
 $ sudo killall nginx
 ```
 
@@ -92,6 +95,7 @@ $ sudo killall nginx
 * 今回は8081番にapache、8082番にnginxです。お好みでお好きなコンテンツをあげてください。
 
 ```console
+### <on Linux>
 $ sudo docker run -ti -d -p8081:80 httpd:2.4
 $ sudo docker run -ti -d -p8082:80 nginx:1.16
 ```
@@ -99,6 +103,7 @@ $ sudo docker run -ti -d -p8082:80 nginx:1.16
 ### Nginx側の設定
 
 * `mruby_set` で$backendを動的にセットしているのがわかると思います。他はNginxをプロクシとして使うときのおまじないみたいな...。
+* 以下、 `Nginxの設定` はLinuxで `/usr/local/nginx-mruby/conf/nginx.conf` を直接書き換えていく。
 
 ```conf
 ...
@@ -125,7 +130,7 @@ $ sudo docker run -ti -d -p8082:80 nginx:1.16
 
 ### mruby の配置
 
-* `/usr/local/nginx-mruby/mruby/*.rb` にmrubyスクリプトをおきましょう。今回はこちら
+* Linux側 `/usr/local/nginx-mruby/mruby/step1.rb` にmrubyスクリプトをおきましょう。今回はこちら
 
 ```ruby
 data = Nginx::Var.new
@@ -148,17 +153,18 @@ upstream
 
 ### これで立ち上げる
 
-* port forward してるはずなのでホストから
+* port forward してるはずなのでホスト(on Mac)から
   * `http://apache.127.0.0.1.xip.io:8080/`
   * `http://nginx.127.0.0.1.xip.io:8080/`
   * `http://udzura.127.0.0.1.xip.io:8080/`
-* へのアクセスを確認して見ましょう。
+* へのアクセスを確認してみましょう。
 * 宿題として、「その他」の場合に今は503になってしまうのを、もっといい感じにできないか考えてみましょう
 
 ## 2) 現在のシステムの状態を出す
 
 * いよいよ、作成したmgemをngx_mrubyから使ってみます。
 * `mruby_content_handler` で、普通のRailsか何かのようにシュッと出せます。
+* 設定例
 
 ```conf
 ...
@@ -176,6 +182,8 @@ upstream
         }
     }
 ```
+
+* `step2.rb` とします
 
 ```ruby
 lav = Loadavg.new
@@ -196,6 +204,7 @@ Nginx.rputs({
   * `ruby -e 'loop { Math.sqrt(rand 10000) }' & ...`
 
 ```console
+### <on Linux>
 $ sudo apt install jq
 $ curl -s localhost/status.json | jq .
 {
