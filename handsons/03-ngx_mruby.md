@@ -20,9 +20,16 @@ $ vim build_config.rb
 
 ...
 ## L59 以降 end までの間に、今回使うmgemを指定する
-  conf.gem github: "udzura/mruby-loadavg"
-  conf.gem github: "udzura/mruby-uname"
+  conf.gem github: "${github id}/mruby-loadavg"
+  conf.gem github: "${github id}/mruby-uname"
 end
+```
+
+* pushがまだの方はhandsonsにあるgemを使いましょう
+
+```ruby
+  conf.gem '/vagrant/mruby-loadavg'
+  conf.gem '/vagrant/mruby-myuname'
 ```
 
 * その後ビルド
